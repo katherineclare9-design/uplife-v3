@@ -10,25 +10,46 @@ let userData = {
 
     xpToNextLevel: 500,
 
+
     streak: 0,
+
 
     workoutsCompleted: 0,
 
+
     checklistCompleted: 0,
+
 
     completedWorkouts: [],
 
+
     unlockedBadges: [],
 
-    lastWorkoutDate: null
 
+    lastWorkoutDate: null,
+
+
+    // Workout Categories
+
+    coreWorkouts: 0,
+
+    strengthWorkouts: 0,
+
+    backspotWorkouts: 0,
+
+    jumpSessions: 0,
+
+    flexibilitySessions: 0,
+
+    lowerBodyWorkouts: 0,
+
+    upperBodyWorkouts: 0
 
 };
 
 
 
 
-// Save user progress
 
 function saveUserData() {
 
@@ -47,7 +68,6 @@ function saveUserData() {
 
 
 
-// Load user progress
 
 function loadUserData() {
 
@@ -69,7 +89,6 @@ function loadUserData() {
 
 
 
-// Add XP
 
 function addXP(amount) {
 
@@ -113,7 +132,6 @@ function addXP(amount) {
 
 
 
-// Reset Progress
 
 function resetProgress() {
 
@@ -138,6 +156,7 @@ function resetProgress() {
 
 
 }
+
 
 
 
