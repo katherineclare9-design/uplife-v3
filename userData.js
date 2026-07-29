@@ -43,7 +43,14 @@ let userData = {
 
     lowerBodyWorkouts: 0,
 
-    upperBodyWorkouts: 0
+    upperBodyWorkouts: 0,
+
+
+    // Settings
+
+    mode: "Regular",
+
+    arfidSupport: false
 
 };
 
@@ -78,7 +85,13 @@ function loadUserData() {
     if (savedData) {
 
 
-        userData = JSON.parse(savedData);
+        userData = {
+
+            ...userData,
+
+            ...JSON.parse(savedData)
+
+        };
 
 
     }
