@@ -94,6 +94,7 @@ function showPage(page) {
 
         `;
 
+
     }
 
 
@@ -149,6 +150,7 @@ function showPage(page) {
             <h3>🌅 Morning</h3>
 
 
+
             ${workout.morning.map(item => `
 
 
@@ -164,10 +166,12 @@ function showPage(page) {
 
             </button>
 
+
             </p>
 
 
             `).join("")}
+
 
 
         </div>
@@ -180,6 +184,7 @@ function showPage(page) {
 
 
             <h3>🌙 Nighttime</h3>
+
 
 
             ${workout.nighttime.map(item => `
@@ -197,10 +202,12 @@ function showPage(page) {
 
             </button>
 
+
             </p>
 
 
             `).join("")}
+
 
 
         </div>
@@ -228,7 +235,7 @@ function showPage(page) {
 
 
 
-        <div class="card">
+        <div class="badge-gallery">
 
 
         ${Object.keys(badges).map(badge => {
@@ -241,14 +248,23 @@ function showPage(page) {
             return `
 
 
-            <div>
+            <div class="badge-card ${unlocked ? "unlocked" : "locked"}">
+
+
+                <h2>
+
+                ${unlocked ? badges[badge].icon : "🔒"}
+
+                </h2>
+
 
 
                 <h3>
 
-                ${unlocked ? badges[badge].name : "🔒 Locked"}
+                ${badges[badge].name}
 
                 </h3>
+
 
 
                 <p>
@@ -258,7 +274,16 @@ function showPage(page) {
                 </p>
 
 
+
+                <small>
+
+                ${badges[badge].category}
+
+                </small>
+
+
             </div>
+
 
 
             `;
@@ -295,13 +320,13 @@ function showPage(page) {
         <div class="card">
 
 
-        <p>⭐ Level: ${userData.level}</p>
+            <p>⭐ Level: ${userData.level}</p>
 
-        <p>XP: ${userData.xp}/${userData.xpToNextLevel}</p>
+            <p>XP: ${userData.xp}/${userData.xpToNextLevel}</p>
 
-        <p>🔥 Streak: ${userData.streak}</p>
+            <p>🔥 Streak: ${userData.streak}</p>
 
-        <p>💪 Workouts: ${userData.workoutsCompleted}</p>
+            <p>💪 Workouts: ${userData.workoutsCompleted}</p>
 
 
         </div>
@@ -332,13 +357,13 @@ function showPage(page) {
         <div class="card">
 
 
-        <p>💖 Regular Mode</p>
+            <p>💖 Regular Mode</p>
 
-        <p>🤍 Vacation Mode</p>
+            <p>🤍 Vacation Mode</p>
 
-        <p>❤️ Period Mode</p>
+            <p>❤️ Period Mode</p>
 
-        <p>🥗 ARFID Mode</p>
+            <p>🥗 ARFID Mode</p>
 
 
         </div>
@@ -349,14 +374,14 @@ function showPage(page) {
         <div class="card">
 
 
-        <h3>⚠️ Progress Settings</h3>
+            <h3>⚠️ Progress Settings</h3>
 
 
-        <button onclick="resetProgress()">
+            <button onclick="resetProgress()">
 
-        Reset Progress
+                Reset Progress
 
-        </button>
+            </button>
 
 
         </div>
