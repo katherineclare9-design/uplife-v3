@@ -23,6 +23,9 @@ function completeWorkout(workoutName) {
         userData.workoutsCompleted += 1;
 
 
+        checkBadges();
+
+
         saveUserData();
 
 
@@ -91,7 +94,6 @@ function showPage(page) {
 
         `;
 
-
     }
 
 
@@ -140,6 +142,7 @@ function showPage(page) {
 
 
 
+
         <div class="card">
 
 
@@ -151,19 +154,20 @@ function showPage(page) {
 
             <p>
 
-                <button onclick="completeWorkout('${item}')">
+            <button onclick="completeWorkout('${item}')">
 
-                ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
 
-                ${item}
+            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
 
-                </button>
+            ${item}
+
+
+            </button>
 
             </p>
 
 
             `).join("")}
-
 
 
         </div>
@@ -183,55 +187,20 @@ function showPage(page) {
 
             <p>
 
-                <button onclick="completeWorkout('${item}')">
+            <button onclick="completeWorkout('${item}')">
 
-                ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
 
-                ${item}
+            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
 
-                </button>
+            ${item}
+
+
+            </button>
 
             </p>
 
 
             `).join("")}
-
-
-
-        </div>
-
-
-
-        `;
-
-
-    }
-
-
-
-
-
-    // CHECKLIST
-
-    if (page === "checklist") {
-
-
-        content = `
-
-
-        <h1>✅ Daily Checklist</h1>
-
-
-        <div class="card">
-
-
-            <p>☐ Complete Workout</p>
-
-            <p>☐ Drink Water</p>
-
-            <p>☐ Nutrition Goal</p>
-
-            <p>☐ Mindset Check</p>
 
 
         </div>
@@ -258,48 +227,45 @@ function showPage(page) {
         <h1>🏅 Badge Gallery</h1>
 
 
-        <div class="card">
-
-
-            <p>
-
-            Badges coming soon.
-
-            </p>
-
-
-        </div>
-
-
-
-        `;
-
-
-    }
-
-
-
-
-
-    // DIARY
-
-    if (page === "diary") {
-
-
-        content = `
-
-
-        <h1>📖 Diary</h1>
-
 
         <div class="card">
 
 
-            <p>
+        ${Object.keys(badges).map(badge => {
 
-            Weekly Well Check coming soon.
 
-            </p>
+            const unlocked = userData.unlockedBadges.includes(badge);
+
+
+
+            return `
+
+
+            <div>
+
+
+                <h3>
+
+                ${unlocked ? badges[badge].name : "🔒 Locked"}
+
+                </h3>
+
+
+                <p>
+
+                ${badges[badge].description}
+
+                </p>
+
+
+            </div>
+
+
+            `;
+
+
+        }).join("")}
+
 
 
         </div>
@@ -329,13 +295,13 @@ function showPage(page) {
         <div class="card">
 
 
-            <p>⭐ Level: ${userData.level}</p>
+        <p>⭐ Level: ${userData.level}</p>
 
-            <p>XP: ${userData.xp}/${userData.xpToNextLevel}</p>
+        <p>XP: ${userData.xp}/${userData.xpToNextLevel}</p>
 
-            <p>🔥 Streak: ${userData.streak}</p>
+        <p>🔥 Streak: ${userData.streak}</p>
 
-            <p>💪 Workouts: ${userData.workoutsCompleted}</p>
+        <p>💪 Workouts: ${userData.workoutsCompleted}</p>
 
 
         </div>
@@ -366,13 +332,13 @@ function showPage(page) {
         <div class="card">
 
 
-            <p>💖 Regular Mode</p>
+        <p>💖 Regular Mode</p>
 
-            <p>🤍 Vacation Mode</p>
+        <p>🤍 Vacation Mode</p>
 
-            <p>❤️ Period Mode</p>
+        <p>❤️ Period Mode</p>
 
-            <p>🥗 ARFID Mode</p>
+        <p>🥗 ARFID Mode</p>
 
 
         </div>
@@ -383,14 +349,14 @@ function showPage(page) {
         <div class="card">
 
 
-            <h3>⚠️ Progress Settings</h3>
+        <h3>⚠️ Progress Settings</h3>
 
 
-            <button onclick="resetProgress()">
+        <button onclick="resetProgress()">
 
-                Reset Progress
+        Reset Progress
 
-            </button>
+        </button>
 
 
         </div>
@@ -429,25 +395,9 @@ function showPage(page) {
 
 
 
-        <button onclick="showPage('checklist')">
-
-        ✅<br>Checklist
-
-        </button>
-
-
-
         <button onclick="showPage('badges')">
 
         🏅<br>Badges
-
-        </button>
-
-
-
-        <button onclick="showPage('diary')">
-
-        📖<br>Diary
 
         </button>
 
