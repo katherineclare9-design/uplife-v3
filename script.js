@@ -6,7 +6,87 @@ const app = document.getElementById("app");
 
 
 
-// Complete workout
+// SETTINGS FUNCTIONS
+
+
+function changeMode(mode) {
+
+
+    userData.mode = mode;
+
+
+    saveUserData();
+
+
+    applyTheme();
+
+
+    showPage("settings");
+
+
+}
+
+
+
+
+
+function toggleARFID() {
+
+
+    userData.arfidSupport = !userData.arfidSupport;
+
+
+    saveUserData();
+
+
+    showPage("settings");
+
+
+}
+
+
+
+
+
+function applyTheme() {
+
+
+    document.body.className = "";
+
+
+
+    if (userData.mode === "Regular") {
+
+        document.body.classList.add("regular-theme");
+
+    }
+
+
+
+    if (userData.mode === "Vacation") {
+
+        document.body.classList.add("vacation-theme");
+
+    }
+
+
+
+    if (userData.mode === "Period") {
+
+        document.body.classList.add("period-theme");
+
+    }
+
+
+}
+
+
+
+
+
+
+// COMPLETE WORKOUT
+
 
 function completeWorkout(workoutName) {
 
@@ -111,6 +191,7 @@ function showPage(page) {
 
     // HOME
 
+
     if (page === "home") {
 
 
@@ -119,35 +200,42 @@ function showPage(page) {
 
         <h1>💖 UpLift</h1>
 
+
         <h2>🏠 Home</h2>
 
 
 
         <div class="card">
 
+
         <h3>⭐ Level ${userData.level}</h3>
 
         <p>${userData.xp}/${userData.xpToNextLevel} XP</p>
+
 
         </div>
 
 
 
         <div class="card">
+
 
         <h3>🔥 Daily Streak</h3>
 
         <p>${userData.streak} Days</p>
 
+
         </div>
 
 
 
         <div class="card">
 
+
         <h3>💪 Workouts Completed</h3>
 
         <p>${userData.workoutsCompleted}</p>
+
 
         </div>
 
@@ -163,7 +251,9 @@ function showPage(page) {
 
 
 
+
     // TRAINING
+
 
     if (page === "training") {
 
@@ -191,13 +281,11 @@ function showPage(page) {
         const today = days[new Date().getDay()];
 
 
-
         const workout = dailyWorkouts[today];
 
 
 
         content = `
-
 
 
         <h1>💪 Training</h1>
@@ -212,6 +300,7 @@ function showPage(page) {
 
 
         <h3>🌅 Morning</h3>
+
 
 
         ${workout.morning.map(item => `
@@ -234,6 +323,7 @@ function showPage(page) {
         </p>
 
 
+
         `).join("")}
 
 
@@ -249,6 +339,7 @@ function showPage(page) {
 
 
         <h3>🌙 Nighttime</h3>
+
 
 
         ${workout.nighttime.map(item => `
@@ -271,6 +362,7 @@ function showPage(page) {
         </p>
 
 
+
         `).join("")}
 
 
@@ -289,7 +381,9 @@ function showPage(page) {
 
 
 
+
     // BADGES
+
 
     if (page === "badges") {
 
@@ -316,7 +410,6 @@ function showPage(page) {
             return `
 
 
-
             <div class="badge-card ${unlocked ? "unlocked" : "locked"}">
 
 
@@ -327,13 +420,11 @@ function showPage(page) {
             </h2>
 
 
-
             <h3>
 
             ${badges[badge].name}
 
             </h3>
-
 
 
             <p>
@@ -343,13 +434,11 @@ function showPage(page) {
             </p>
 
 
-
             <small>
 
             ${badges[badge].category}
 
             </small>
-
 
 
             </div>
@@ -377,7 +466,10 @@ function showPage(page) {
 
 
 
+
+
     // PROFILE
+
 
     if (page === "profile") {
 
@@ -386,6 +478,7 @@ function showPage(page) {
 
 
         <h1>👤 Profile</h1>
+
 
 
         <div class="card">
@@ -403,17 +496,17 @@ function showPage(page) {
         <hr>
 
 
-        <p>🔥 Core: ${userData.coreWorkouts}</p>
+        <p>🔥 Core: ${userData.coreWorkouts || 0}</p>
 
-        <p>💪 Strength: ${userData.strengthWorkouts}</p>
+        <p>💪 Strength: ${userData.strengthWorkouts || 0}</p>
 
-        <p>🤸 Flexibility: ${userData.flexibilitySessions}</p>
+        <p>🤸 Flexibility: ${userData.flexibilitySessions || 0}</p>
 
-        <p>🏋️ Backspot: ${userData.backspotWorkouts}</p>
+        <p>🏋️ Backspot: ${userData.backspotWorkouts || 0}</p>
 
-        <p>🦵 Lower Body: ${userData.lowerBodyWorkouts}</p>
+        <p>🦵 Lower Body: ${userData.lowerBodyWorkouts || 0}</p>
 
-        <p>💪 Upper Body: ${userData.upperBodyWorkouts}</p>
+        <p>💪 Upper Body: ${userData.upperBodyWorkouts || 0}</p>
 
 
         </div>
@@ -430,7 +523,10 @@ function showPage(page) {
 
 
 
+
+
     // SETTINGS
+
 
     if (page === "settings") {
 
@@ -442,16 +538,44 @@ function showPage(page) {
 
 
 
+
         <div class="card">
 
 
-        <p>💖 Regular Mode</p>
+        <h3>🌈 App Mode</h3>
 
-        <p>🤍 Vacation Mode</p>
 
-        <p>❤️ Period Mode</p>
 
-        <p>🥗 ARFID Mode</p>
+        <button class="mode-button" onclick="changeMode('Regular')">
+
+        💖 Regular Mode
+
+        </button>
+
+
+
+        <button class="mode-button" onclick="changeMode('Vacation')">
+
+        🤍 Vacation Mode
+
+        </button>
+
+
+
+        <button class="mode-button" onclick="changeMode('Period')">
+
+        ❤️ Period Mode
+
+        </button>
+
+
+
+        <p>
+
+        Current Mode: ${userData.mode}
+
+        </p>
+
 
 
         </div>
@@ -460,10 +584,56 @@ function showPage(page) {
 
 
 
+
         <div class="card">
 
 
-        <h3>⚠️ Progress Settings</h3>
+        <h3>🥗 Nutrition Support</h3>
+
+
+
+        <label>
+
+
+        <input
+
+        type="checkbox"
+
+        ${userData.arfidSupport ? "checked" : ""}
+
+        onclick="toggleARFID()"
+
+        >
+
+
+        ARFID Support Feature
+
+
+        </label>
+
+
+
+        <p>
+
+        This helps the app understand nutrition information should be handled sensitively.
+
+        </p>
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="card">
+
+
+        <h3>💾 Data</h3>
+
 
 
         <button onclick="resetProgress()">
@@ -473,7 +643,9 @@ function showPage(page) {
         </button>
 
 
+
         </div>
+
 
 
 
@@ -487,11 +659,13 @@ function showPage(page) {
 
 
 
+
     app.innerHTML = content + `
 
 
 
     <div class="bottom-nav">
+
 
 
     <button onclick="showPage('home')">
@@ -533,6 +707,7 @@ function showPage(page) {
     </button>
 
 
+
     </div>
 
 
@@ -544,6 +719,10 @@ function showPage(page) {
 
 
 
+
+
+
+applyTheme();
 
 
 showPage("home");
