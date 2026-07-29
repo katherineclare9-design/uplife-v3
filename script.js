@@ -1,4 +1,4 @@
-// UpLift Prototype 1
+// UpLift App Logic
 
 
 const app = document.getElementById("app");
@@ -79,6 +79,7 @@ function applyTheme() {
 
 
 }
+
 
 
 
@@ -180,10 +181,13 @@ function completeWorkout(workoutName) {
 
 
 
+
+
 function showPage(page) {
 
 
     let content = "";
+
 
 
 
@@ -207,35 +211,29 @@ function showPage(page) {
 
         <div class="card">
 
-
         <h3>⭐ Level ${userData.level}</h3>
 
         <p>${userData.xp}/${userData.xpToNextLevel} XP</p>
-
 
         </div>
 
 
 
         <div class="card">
-
 
         <h3>🔥 Daily Streak</h3>
 
         <p>${userData.streak} Days</p>
 
-
         </div>
 
 
 
         <div class="card">
 
-
         <h3>💪 Workouts Completed</h3>
 
         <p>${userData.workoutsCompleted}</p>
-
 
         </div>
 
@@ -252,10 +250,13 @@ function showPage(page) {
 
 
 
+
+
     // TRAINING
 
 
     if (page === "training") {
+
 
 
         const days = [
@@ -281,100 +282,228 @@ function showPage(page) {
         const today = days[new Date().getDay()];
 
 
-        const workout = dailyWorkouts[today];
 
+        let workout;
 
 
-        content = `
 
+        // VACATION MODE
 
-        <h1>💪 Training</h1>
 
+        if (userData.mode === "Vacation") {
 
-        <h2>Today's Workout: ${today}</h2>
 
 
+            workout = {
 
+                vacation: true,
 
-        <div class="card">
+                workouts: vacationWorkouts.workout
 
+            };
 
-        <h3>🌅 Morning</h3>
 
+        }
 
 
-        ${workout.morning.map(item => `
 
+        // PERIOD MODE
 
-        <p>
 
+        else if (userData.mode === "Period") {
 
-        <button onclick="completeWorkout('${item}')">
 
 
-        ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
+            workout = dailyWorkouts[today];
 
-        ${item}
+            workout.period = true;
 
 
-        </button>
+        }
 
 
-        </p>
 
+        // REGULAR MODE
 
 
-        `).join("")}
+        else {
 
 
 
-        </div>
+            workout = dailyWorkouts[today];
 
 
+        }
 
 
 
 
-        <div class="card">
 
 
-        <h3>🌙 Nighttime</h3>
 
+        if (workout.vacation) {
 
 
-        ${workout.nighttime.map(item => `
 
+            content = `
 
-        <p>
 
 
-        <button onclick="completeWorkout('${item}')">
+            <h1>🤍 Vacation Workout</h1>
 
 
-        ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
 
-        ${item}
+            <div class="card">
 
 
-        </button>
+            ${workout.workouts.map(item => `
 
 
-        </p>
 
+            <p>
 
+            <button onclick="completeWorkout('${item}')">
 
-        `).join("")}
 
+            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
 
+            ${item}
 
-        </div>
 
+            </button>
 
 
-        `;
+            </p>
+
+
+
+            `).join("")}
+
+
+
+            </div>
+
+
+
+            `;
+
+
+        }
+
+
+
+        else {
+
+
+
+            content = `
+
+
+
+            <h1>💪 Training</h1>
+
+
+            <h2>Today's Workout: ${today}</h2>
+
+
+
+
+
+            <div class="card">
+
+
+            <h3>🌅 Morning</h3>
+
+
+
+            ${workout.morning.map(item => `
+
+
+
+            <p>
+
+
+            <button onclick="completeWorkout('${item}')">
+
+
+            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
+
+            ${item}
+
+
+            </button>
+
+
+            </p>
+
+
+
+            `).join("")}
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <div class="card">
+
+
+            <h3>
+
+            🌙 Nighttime 
+
+            ${workout.period ? "(Optional)" : ""}
+
+
+            </h3>
+
+
+
+            ${workout.nighttime.map(item => `
+
+
+
+            <p>
+
+
+            <button onclick="completeWorkout('${item}')">
+
+
+            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
+
+            ${item}
+
+
+            </button>
+
+
+            </p>
+
+
+
+            `).join("")}
+
+
+
+            </div>
+
+
+
+
+            `;
+
+
+        }
 
 
     }
+
+
 
 
 
@@ -448,6 +577,7 @@ function showPage(page) {
             `;
 
 
+
         }).join("")}
 
 
@@ -468,6 +598,7 @@ function showPage(page) {
 
 
 
+
     // PROFILE
 
 
@@ -477,11 +608,13 @@ function showPage(page) {
         content = `
 
 
+
         <h1>👤 Profile</h1>
 
 
 
         <div class="card">
+
 
 
         <p>⭐ Level: ${userData.level}</p>
@@ -493,7 +626,9 @@ function showPage(page) {
         <p>💪 Total Workouts: ${userData.workoutsCompleted}</p>
 
 
+
         <hr>
+
 
 
         <p>🔥 Core: ${userData.coreWorkouts || 0}</p>
@@ -507,6 +642,7 @@ function showPage(page) {
         <p>🦵 Lower Body: ${userData.lowerBodyWorkouts || 0}</p>
 
         <p>💪 Upper Body: ${userData.upperBodyWorkouts || 0}</p>
+
 
 
         </div>
@@ -525,6 +661,7 @@ function showPage(page) {
 
 
 
+
     // SETTINGS
 
 
@@ -532,6 +669,7 @@ function showPage(page) {
 
 
         content = `
+
 
 
         <h1>⚙️ Settings</h1>
@@ -577,7 +715,6 @@ function showPage(page) {
         </p>
 
 
-
         </div>
 
 
@@ -595,29 +732,19 @@ function showPage(page) {
         <label>
 
 
-        <input
-
-        type="checkbox"
+        <input type="checkbox"
 
         ${userData.arfidSupport ? "checked" : ""}
 
-        onclick="toggleARFID()"
+        onclick="toggleARFID()">
 
-        >
 
 
         ARFID Support Feature
 
 
+
         </label>
-
-
-
-        <p>
-
-        This helps the app understand nutrition information should be handled sensitively.
-
-        </p>
 
 
 
@@ -636,16 +763,14 @@ function showPage(page) {
 
 
 
-        <button onclick="resetProgress()">
+        <button onclick="resetProgress">
 
         Reset Progress
 
         </button>
 
 
-
         </div>
-
 
 
 
@@ -653,6 +778,7 @@ function showPage(page) {
 
 
     }
+
 
 
 
@@ -716,7 +842,6 @@ function showPage(page) {
 
 
 }
-
 
 
 
