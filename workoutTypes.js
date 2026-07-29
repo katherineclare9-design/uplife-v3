@@ -24,7 +24,7 @@ const workoutTypes = {
 
     "Jumps and flexibility": {
 
-        category: "jump",
+        category: "flexibility",
 
         xp: 75
 
