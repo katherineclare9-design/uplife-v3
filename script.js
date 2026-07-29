@@ -17,19 +17,77 @@ function completeWorkout(workoutName) {
         userData.completedWorkouts.push(workoutName);
 
 
-        addXP(50);
+
+        const workout = workoutTypes[workoutName];
 
 
-        userData.workoutsCompleted += 1;
+
+        if (workout) {
+
+
+            addXP(workout.xp);
+
+
+
+            if (workout.category === "core") {
+
+                userData.coreWorkouts++;
+
+            }
+
+
+            if (workout.category === "strength") {
+
+                userData.strengthWorkouts++;
+
+            }
+
+
+            if (workout.category === "backspot") {
+
+                userData.backspotWorkouts++;
+
+            }
+
+
+            if (workout.category === "flexibility") {
+
+                userData.flexibilitySessions++;
+
+            }
+
+
+            if (workout.category === "lowerBody") {
+
+                userData.lowerBodyWorkouts++;
+
+            }
+
+
+            if (workout.category === "upperBody") {
+
+                userData.upperBodyWorkouts++;
+
+            }
+
+
+        }
+
+
+
+        userData.workoutsCompleted++;
+
 
 
         checkBadges();
+
 
 
         saveUserData();
 
 
     }
+
 
 
     showPage("training");
@@ -41,10 +99,13 @@ function completeWorkout(workoutName) {
 
 
 
+
 function showPage(page) {
 
 
     let content = "";
+
+
 
 
 
@@ -64,19 +125,9 @@ function showPage(page) {
 
         <div class="card">
 
-            <h3>⭐ Level ${userData.level}</h3>
+        <h3>⭐ Level ${userData.level}</h3>
 
-            <p>${userData.xp}/${userData.xpToNextLevel} XP</p>
-
-        </div>
-
-
-
-        <div class="card">
-
-            <h3>🔥 Daily Streak</h3>
-
-            <p>${userData.streak} Days</p>
+        <p>${userData.xp}/${userData.xpToNextLevel} XP</p>
 
         </div>
 
@@ -84,9 +135,19 @@ function showPage(page) {
 
         <div class="card">
 
-            <h3>💪 Workouts Completed</h3>
+        <h3>🔥 Daily Streak</h3>
 
-            <p>${userData.workoutsCompleted}</p>
+        <p>${userData.streak} Days</p>
+
+        </div>
+
+
+
+        <div class="card">
+
+        <h3>💪 Workouts Completed</h3>
+
+        <p>${userData.workoutsCompleted}</p>
 
         </div>
 
@@ -96,6 +157,7 @@ function showPage(page) {
 
 
     }
+
 
 
 
@@ -129,11 +191,13 @@ function showPage(page) {
         const today = days[new Date().getDay()];
 
 
+
         const workout = dailyWorkouts[today];
 
 
 
         content = `
+
 
 
         <h1>💪 Training</h1>
@@ -147,30 +211,30 @@ function showPage(page) {
         <div class="card">
 
 
-            <h3>🌅 Morning</h3>
+        <h3>🌅 Morning</h3>
 
 
-
-            ${workout.morning.map(item => `
-
-
-            <p>
-
-            <button onclick="completeWorkout('${item}')">
+        ${workout.morning.map(item => `
 
 
-            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
-
-            ${item}
+        <p>
 
 
-            </button>
+        <button onclick="completeWorkout('${item}')">
 
 
-            </p>
+        ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
+
+        ${item}
 
 
-            `).join("")}
+        </button>
+
+
+        </p>
+
+
+        `).join("")}
 
 
 
@@ -180,33 +244,34 @@ function showPage(page) {
 
 
 
+
         <div class="card">
 
 
-            <h3>🌙 Nighttime</h3>
+        <h3>🌙 Nighttime</h3>
 
 
-
-            ${workout.nighttime.map(item => `
-
-
-            <p>
-
-            <button onclick="completeWorkout('${item}')">
+        ${workout.nighttime.map(item => `
 
 
-            ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
-
-            ${item}
+        <p>
 
 
-            </button>
+        <button onclick="completeWorkout('${item}')">
 
 
-            </p>
+        ${userData.completedWorkouts.includes(item) ? "✅" : "☐"}
+
+        ${item}
 
 
-            `).join("")}
+        </button>
+
+
+        </p>
+
+
+        `).join("")}
 
 
 
@@ -218,6 +283,7 @@ function showPage(page) {
 
 
     }
+
 
 
 
@@ -238,7 +304,9 @@ function showPage(page) {
         <div class="badge-gallery">
 
 
+
         ${Object.keys(badges).map(badge => {
+
 
 
             const unlocked = userData.unlockedBadges.includes(badge);
@@ -248,38 +316,40 @@ function showPage(page) {
             return `
 
 
+
             <div class="badge-card ${unlocked ? "unlocked" : "locked"}">
 
 
-                <h2>
+            <h2>
 
-                ${unlocked ? badges[badge].icon : "🔒"}
+            ${unlocked ? badges[badge].icon : "🔒"}
 
-                </h2>
-
-
-
-                <h3>
-
-                ${badges[badge].name}
-
-                </h3>
+            </h2>
 
 
 
-                <p>
+            <h3>
 
-                ${badges[badge].description}
+            ${badges[badge].name}
 
-                </p>
+            </h3>
 
 
 
-                <small>
+            <p>
 
-                ${badges[badge].category}
+            ${badges[badge].description}
 
-                </small>
+            </p>
+
+
+
+            <small>
+
+            ${badges[badge].category}
+
+            </small>
+
 
 
             </div>
@@ -306,6 +376,7 @@ function showPage(page) {
 
 
 
+
     // PROFILE
 
     if (page === "profile") {
@@ -320,13 +391,29 @@ function showPage(page) {
         <div class="card">
 
 
-            <p>⭐ Level: ${userData.level}</p>
+        <p>⭐ Level: ${userData.level}</p>
 
-            <p>XP: ${userData.xp}/${userData.xpToNextLevel}</p>
+        <p>XP: ${userData.xp}/${userData.xpToNextLevel}</p>
 
-            <p>🔥 Streak: ${userData.streak}</p>
+        <p>🔥 Streak: ${userData.streak}</p>
 
-            <p>💪 Workouts: ${userData.workoutsCompleted}</p>
+        <p>💪 Total Workouts: ${userData.workoutsCompleted}</p>
+
+
+        <hr>
+
+
+        <p>🔥 Core: ${userData.coreWorkouts}</p>
+
+        <p>💪 Strength: ${userData.strengthWorkouts}</p>
+
+        <p>🤸 Flexibility: ${userData.flexibilitySessions}</p>
+
+        <p>🏋️ Backspot: ${userData.backspotWorkouts}</p>
+
+        <p>🦵 Lower Body: ${userData.lowerBodyWorkouts}</p>
+
+        <p>💪 Upper Body: ${userData.upperBodyWorkouts}</p>
 
 
         </div>
@@ -337,6 +424,7 @@ function showPage(page) {
 
 
     }
+
 
 
 
@@ -357,13 +445,13 @@ function showPage(page) {
         <div class="card">
 
 
-            <p>💖 Regular Mode</p>
+        <p>💖 Regular Mode</p>
 
-            <p>🤍 Vacation Mode</p>
+        <p>🤍 Vacation Mode</p>
 
-            <p>❤️ Period Mode</p>
+        <p>❤️ Period Mode</p>
 
-            <p>🥗 ARFID Mode</p>
+        <p>🥗 ARFID Mode</p>
 
 
         </div>
@@ -371,17 +459,18 @@ function showPage(page) {
 
 
 
+
         <div class="card">
 
 
-            <h3>⚠️ Progress Settings</h3>
+        <h3>⚠️ Progress Settings</h3>
 
 
-            <button onclick="resetProgress()">
+        <button onclick="resetProgress()">
 
-                Reset Progress
+        Reset Progress
 
-            </button>
+        </button>
 
 
         </div>
@@ -397,6 +486,7 @@ function showPage(page) {
 
 
 
+
     app.innerHTML = content + `
 
 
@@ -404,43 +494,43 @@ function showPage(page) {
     <div class="bottom-nav">
 
 
-        <button onclick="showPage('home')">
+    <button onclick="showPage('home')">
 
-        🏠<br>Home
+    🏠<br>Home
 
-        </button>
-
-
-
-        <button onclick="showPage('training')">
-
-        💪<br>Training
-
-        </button>
+    </button>
 
 
 
-        <button onclick="showPage('badges')">
+    <button onclick="showPage('training')">
 
-        🏅<br>Badges
+    💪<br>Training
 
-        </button>
-
-
-
-        <button onclick="showPage('profile')">
-
-        👤<br>Profile
-
-        </button>
+    </button>
 
 
 
-        <button onclick="showPage('settings')">
+    <button onclick="showPage('badges')">
 
-        ⚙️<br>Settings
+    🏅<br>Badges
 
-        </button>
+    </button>
+
+
+
+    <button onclick="showPage('profile')">
+
+    👤<br>Profile
+
+    </button>
+
+
+
+    <button onclick="showPage('settings')">
+
+    ⚙️<br>Settings
+
+    </button>
 
 
     </div>
