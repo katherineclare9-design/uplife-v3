@@ -6,44 +6,52 @@ const badges = {
 
     firstStep: {
 
-        name: "🏅 First Step",
+        name: "First Step",
+
+        icon: "🌱",
 
         description: "Complete your first workout",
 
-        requirement: 1
+        category: "Getting Started"
 
     },
 
 
     coreStarter: {
 
-        name: "🏅 Core Starter",
+        name: "Core Starter",
+
+        icon: "🔥",
 
         description: "Complete 5 core workouts",
 
-        requirement: 5
+        category: "Core"
 
     },
 
 
     strengthStarter: {
 
-        name: "🏅 Strength Starter",
+        name: "Strength Starter",
+
+        icon: "💪",
 
         description: "Complete 5 strength workouts",
 
-        requirement: 5
+        category: "Strength"
 
     },
 
 
     consistency: {
 
-        name: "🔥 3 Day Flame",
+        name: "3 Day Flame",
+
+        icon: "🔥",
 
         description: "Complete workouts for 3 days",
 
-        requirement: 3
+        category: "Consistency"
 
     }
 
@@ -56,8 +64,6 @@ const badges = {
 
 function checkBadges() {
 
-
-    // First workout badge
 
     if (
 
@@ -73,7 +79,7 @@ function checkBadges() {
 
         alert(
 
-            "🎉 Badge Unlocked!\n\n🏅 First Step"
+            "🎉 Badge Unlocked!\n\n🌱 First Step"
 
         );
 
